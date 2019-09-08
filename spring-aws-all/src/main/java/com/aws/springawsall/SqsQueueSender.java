@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class SqsQueueSender {
 
-	private final QueueMessagingTemplate queueMessagingTemplate;
+    private final QueueMessagingTemplate queueMessagingTemplate;
 
-	@Autowired
-	public SqsQueueSender(AmazonSQSAsync amazonSqs) {
-		this.queueMessagingTemplate = new QueueMessagingTemplate(amazonSqs);
-	}
+    @Autowired
+    public SqsQueueSender(AmazonSQSAsync amazonSqs) {
+        this.queueMessagingTemplate = new QueueMessagingTemplate(amazonSqs);
+    }
 
-	public void send(String message) {
-		this.queueMessagingTemplate.send("pedidosFeeder", MessageBuilder.withPayload(message).build());
-	}
+    public void send(String message) {
+        this.queueMessagingTemplate.send("pedidosFeeder", MessageBuilder.withPayload(message).build());
+    }
 }
