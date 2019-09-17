@@ -1,0 +1,49 @@
+aws dynamodb list-tables
+#doc
+aws dynamodb describe-table help
+aws dynamodb describe-table --table-name tb_notes
+
+#create table
+aws dynamodb create-table --table-name td_notes_test --attribute-definitions AttributeName=user_id,AttributeType=S AttributeName=timestamp,AttributeType=N --key-schema AttributeName=user_id,KeyType=HASH AttributeName=timestamp,KeyType=RANGE --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
+
+aws dynamodb describe-table --table-name td_notes_test
+
+#delete table
+aws dynamodb delete-table --table-name td_notes_test
+
+#inserindo items
+aws dyanamodb put-item --table-name td_notes_test --item file://item.json
+
+#update items
+aws dynamodb update-item --table-name td_notes_test --key file://key.json --update-expression "SET #t = :t" --expression-attribute-names file://attribute-names.json --expression-attribute-values file://attribute-values.json
+
+#delete item
+aws dynamodb delete-item --table-name td_notes_test --key file://key.json
+
+#batch operations
+aws dynamodb batch-write-item --request-items file://items.json
+
+#get item
+aws dynamodb get-item --table-name td_notes_test --key file://read-key
+#query
+aws dyanamodb query --table-name td_notes_test --key-condition-expression "user_id = :uid" --expression-attribute-value file://expression-attribute-values.json
+#query2
+aws dynamodb query --table-name td_notes_test --key-condition-expression "user_id = :uid AND #t > :t" --expression-attribute-value file://expression-attribute-values.json --expression-attribute-names file://expression-attribute-names.json
+
+#query com filter
+aws dynamodb query --table-name td_notes_test --key-condition-expression "user_id = :uid AND #t > :t" --expression-attribute-value file://expression-attribute-values.json --expression-attribute-names file://expression-attribute-names.json --filter-expression "cat = :cat"
+
+#query custo
+aws dynamodb query --table-name td_notes_test --key-condition-expression "user_id = :uid AND #t > :t" --expression-attribute-value file://expression-attribute-values.json --expression-attribute-names file://expression-attribute-names.json --filter-expression "cat = :cat" --return-consumed-capacity INDEXES
+
+aws dynamodb query --table-name td_notes_test --key-condition-expression "user_id = :uid AND #t > :t" --expression-attribute-value file://expression-attribute-values.json --expression-attribute-names file://expression-attribute-names.json --filter-expression "cat = :cat" --return-consumed-capacity INDEXES --consistent-read
+
+#order by
+aws dynamodb query --table-name td_notes_test --key-condition-expression "user_id = :uid AND #t > :t" --expression-attribute-value file://expression-attribute-values.json --expression-attribute-names file://expression-attribute-names.json ---no-scan-index-forward
+
+#batch get item
+aws dynamodb batch-get-item --request-items file://request-items.json
+
+#scan operation
+aws dynamodb scan --table-name td_notes_test
+aws dynamodb scan --table-name td_notes_test --filter-expression "usernama = :uname" --expression-attribute-values file://uname.json
