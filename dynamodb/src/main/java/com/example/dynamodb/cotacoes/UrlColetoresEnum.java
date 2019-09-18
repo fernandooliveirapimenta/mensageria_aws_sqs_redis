@@ -1,7 +1,7 @@
 package com.example.dynamodb.cotacoes;
 
 import java.text.MessageFormat;
-
+//http://www.anp.gov.br/images/Precos/Mensal2013/MENSAL_ESTADOS-DESDE_Jan2013.xlsx
 public enum  UrlColetoresEnum {
 
     DOLAR("https://ptax.bcb.gov.br/ptax_internet/consultaBoletim.do?method=gerarCSVFechamentoMoedaNoPeriodo&ChkMoeda=61&DATAINI={0}&DATAFIM={1}"),
