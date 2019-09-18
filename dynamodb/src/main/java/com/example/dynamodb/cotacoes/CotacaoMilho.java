@@ -33,8 +33,16 @@ public class CotacaoMilho extends CotacaoAbastract implements Cotacao {
                 final JsonNode arquivo = jsonNode.path("arquivo");
                 if(arquivo != null) {
 
-                    final List<String> strings = baixarArquivo(arquivo.asText());
-                    System.out.println(strings);
+                    final List<String> linhas = baixarArquivo(arquivo.asText());
+
+                    if(linhas.size() >= 3){
+
+                        CotacaoRegistro cotacaoRegistro = new CotacaoRegistro();
+                        cotacaoRegistro.data = LocalDate.now();
+                        cotacaoRegistro.valor = Double.valueOf(linhas.get(1).replace(",", "."));
+
+                        return cotacaoRegistro;
+                    }
 
 
                 }
@@ -43,8 +51,6 @@ public class CotacaoMilho extends CotacaoAbastract implements Cotacao {
             e.printStackTrace();
             return null;
         }
-
-        System.out.println(listaLinhas);
 
         return null;
 

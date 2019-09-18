@@ -1,16 +1,19 @@
 package com.example.dynamodb.cotacoes;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.http.HttpMethod;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 abstract class CotacaoAbastract {
@@ -39,7 +42,26 @@ abstract class CotacaoAbastract {
     }
 
     private List<String> xls(InputStream arquivo) throws IOException {
-       return new ArrayList<>();
+
+        try {
+
+            File ret = File.createTempFile("download", ".xsl");
+            StreamUtils.copy(arquivo, new FileOutputStream(ret));
+            Workbook wb = WorkbookFactory.create(ret);
+            Sheet datatypeSheet = wb.getSheetAt(0);
+
+            List<String> retorno = new ArrayList<>();
+
+            final Row currentRow = datatypeSheet.getRow(4);
+            for (Cell currentCell : currentRow) {
+                retorno.add(currentCell.getStringCellValue());
+            }
+
+            return retorno;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     private List<String> csv(InputStream arquivo) throws IOException {
