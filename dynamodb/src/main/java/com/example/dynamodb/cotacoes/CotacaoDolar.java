@@ -24,7 +24,7 @@ public class CotacaoDolar extends CotacaoAbastract implements Cotacao {
 
 //    https://www.cepea.esalq.usp.br/br/consultas-ao-banco-de-dados-do-site.aspx?tabela_id=dolar&data_inicial=17%2F09%2F2019&periodicidade=1&data_final=17%2F09%2F2019
 //{
-//    com link download xls
+//    com link download lerXlsCepea
 //}
 
 //        16092019;220;A;USD;4,0866;4,0872;1,0000;1,0000

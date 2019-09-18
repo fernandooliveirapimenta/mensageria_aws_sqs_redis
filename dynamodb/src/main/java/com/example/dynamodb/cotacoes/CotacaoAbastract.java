@@ -4,6 +4,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RestTemplate;
@@ -18,7 +19,7 @@ import java.util.List;
 
 abstract class CotacaoAbastract {
 
-    private RestTemplate restTemplate = new RestTemplate();
+     RestTemplate restTemplate = new RestTemplate();
 
     public Object[] inicioFim() {
         final LocalDate now = LocalDate.now();
@@ -34,11 +35,15 @@ abstract class CotacaoAbastract {
         }
         return restTemplate.execute(url, HttpMethod.GET, null, clientHttpResponse -> {
             final InputStream arquivo = clientHttpResponse.getBody();
-            if(url.contains(".xls")) {
+            if(url.contains(".lerXlsCepea")) {
                 return xls(arquivo);
             }
             return csv(arquivo);
         });
+    }
+
+    public InputStream baixarArquivoStream(String url) {
+        return restTemplate.execute(url, HttpMethod.GET, null, HttpInputMessage::getBody);
     }
 
     private List<String> xls(InputStream arquivo) throws IOException {

@@ -38,7 +38,7 @@ public class DynamoTest {
 
     @GetMapping("/cotacao")
     public void  cotacao() {
-        cotacaoCepea.executar();
+//        cotacaoCepea.executar();
         cotacaoMilho.executar();
 
     }
