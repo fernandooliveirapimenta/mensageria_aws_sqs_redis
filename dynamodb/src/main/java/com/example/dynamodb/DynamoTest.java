@@ -6,7 +6,8 @@ import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.document.internal.IteratorSupport;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.model.*;
-import com.example.dynamodb.cotacoes.CotacaoCepeaImpl;
+import com.example.dynamodb.cotacoes.CotacaoDolar;
+import com.example.dynamodb.cotacoes.CotacaoMilho;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -25,17 +26,20 @@ public class DynamoTest {
 
     private final AmazonDynamoDB amazonDynamoDB;
     private final DynamoDBMapper dynamoDBMapper;
-    private final CotacaoCepeaImpl cotacaoCepea;
+    private final CotacaoDolar cotacaoCepea;
+    private final CotacaoMilho cotacaoMilho;
 
-    public DynamoTest(AmazonDynamoDB amazonDynamoDB, DynamoDBMapper dynamoDBMapper, CotacaoCepeaImpl cotacaoCepea) {
+    public DynamoTest(AmazonDynamoDB amazonDynamoDB, DynamoDBMapper dynamoDBMapper, CotacaoDolar cotacaoCepea, CotacaoMilho cotacaoMilho) {
         this.amazonDynamoDB = amazonDynamoDB;
         this.dynamoDBMapper = dynamoDBMapper;
         this.cotacaoCepea = cotacaoCepea;
+        this.cotacaoMilho = cotacaoMilho;
     }
 
     @GetMapping("/cotacao")
     public void  cotacao() {
         cotacaoCepea.executar();
+        cotacaoMilho.executar();
 
     }
 
