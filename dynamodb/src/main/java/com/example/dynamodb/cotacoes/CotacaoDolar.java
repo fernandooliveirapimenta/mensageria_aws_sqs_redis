@@ -49,6 +49,21 @@ public class CotacaoDolar extends CotacaoAbastract implements Cotacao {
         }).orElse(null);
     }
 
+    public List<String> csv(InputStream arquivo) throws IOException {
+        BufferedReader leitor = new BufferedReader(new InputStreamReader(arquivo, StandardCharsets.UTF_8));
+        List<String> linhas = new ArrayList<>();
+        String linhaAtual;
+        while ((linhaAtual = leitor.readLine()) != null) {
+            linhas.add(linhaAtual);
+        }
+        leitor.close();
+
+        List<String> retorno = new ArrayList<>();
+        retorno.add(linhas.get(linhas.size() - 1));
+        retorno.add(linhas.get(linhas.size() - 2));
+        return retorno;
+    }
+
 
 
 //        try (Stream<String> stream = Files.lines(file.toPath())) {

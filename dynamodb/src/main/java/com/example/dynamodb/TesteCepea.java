@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.Map;
 import java.util.Objects;
 
-public class TesteMain {
+public class TesteCepea {
 
 
     public static void main(String[] args) throws Exception {
