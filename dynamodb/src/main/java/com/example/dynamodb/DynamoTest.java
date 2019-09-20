@@ -8,6 +8,8 @@ import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.model.*;
 import com.example.dynamodb.cotacoes.CotacaoDolar;
 import com.example.dynamodb.cotacoes.CotacaoMilho;
+import com.example.dynamodb.cotacoes.CotacaoValorModel;
+import com.example.dynamodb.cotacoes.CotacoesModel;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 @RestController
@@ -37,9 +40,62 @@ public class DynamoTest {
     }
 
     @GetMapping("/cotacao")
-    public void  cotacao() {
+    public void  cotacao(@RequestParam String dt) {
 //        cotacaoCepea.executar();
-        cotacaoMilho.executar();
+//        cotacaoMilho.executar();
+
+        CotacoesModel c1 = new CotacoesModel();
+        c1.setDataCotacao(dt+"dd");
+
+        CotacoesModel c2 = new CotacoesModel();
+        c2.setDataCotacao(LocalDate.now().minusDays(8).toString());
+
+        CotacoesModel c3 = new CotacoesModel();
+        c3.setDataCotacao("inexisteste");
+
+
+        final Map<String, List<Object>> stringListMap = dynamoDBMapper.batchLoad(Arrays.asList(c1, c2, c3));
+
+        final List<Object> cot = stringListMap.get("cotacoes");
+        if(cot != null) {
+            if(cot.size() > 1) {
+                System.out.println("tenho backup");
+                //percorre resultados e tendo certeza que foi ou nao
+            } else if (cot.size() == 1){
+                System.out.println("sem backup");
+            } else {
+                //coletafull e com retorno salvar no dynamo
+                System.out.println("sem nada");
+            }
+            cot.forEach(obj -> {
+
+                CotacoesModel m = (CotacoesModel) obj;
+
+                final List<CotacaoValorModel> soja_cepea = m.filtrarPorTipo("SOJA_CEPEA");
+                System.out.println(soja_cepea);
+            });
+        }
+
+
+
+//        final CotacoesModel load =
+//                dynamoDBMapper.load(CotacoesModel.class, dt);
+//
+//        System.out.println("valor");
+//        System.out.println(load);
+//
+//        if(load != null) {
+//            load.getValores().get(0).setValor(5000.7);
+//            CotacaoValorModel cotacaoValorModel = new CotacaoValorModel();
+//            cotacaoValorModel.setValor(33.3);
+//            cotacaoValorModel.setTipo("DIESEL");
+//            cotacaoValorModel.setUf("NOVO");
+//            cotacaoValorModel.setVariacao(1.3);
+//            load.getValores().add(cotacaoValorModel);
+//            dynamoDBMapper.save(load);
+//        }
+
+
 
     }
 

@@ -5,27 +5,19 @@ AWS.config.update({region: 'us-east-1'});
 const dynamodb = new AWS.DynamoDB()
 
 dynamodb.createTable({
-    TableName: "td_notes_sdk",
+    TableName: "cotacoes",
     AttributeDefinitions: [
         {
-            AttributeName: "user_id",
+            AttributeName: "dataCotacao",
             AttributeType: "S"
-        },
-        {
-            AttributeName: "timestamp",
-            AttributeType: "N"
         }
-    ],
+        ],
     KeySchema: [
         {
-            AttributeName: "user_id",
+            AttributeName: "dataCotacao",
             KeyType: "HASH"
-        },
-        {
-            AttributeName: "timestamp",
-            KeyType: "RANGE"
         }
-    ],
+        ],
     ProvisionedThroughput: {
         ReadCapacityUnits: 1,
         WriteCapacityUnits: 1
