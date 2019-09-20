@@ -12,6 +12,7 @@ public class CotacaoAnp {
 
     public Map<String, Object> lerXlsAnp(File arquivo, String tipo) throws Exception {
 
+        //http://www.anp.gov.br/images/Precos/Semanal2013/SEMANAL_ESTADOS-DESDE_2013.xlsx
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
 
         Workbook wb = WorkbookFactory.create(arquivo);
