@@ -7,6 +7,7 @@ public class CotacaoValorModel {
 
     private String tipo;
     private Double valor;
+    private Double valorVenda;
     private Double variacao;
     private String uf;
 
@@ -40,6 +41,14 @@ public class CotacaoValorModel {
 
     public void setUf(String uf) {
         this.uf = uf;
+    }
+
+    public Double getValorVenda() {
+        return valorVenda;
+    }
+
+    public void setValorVenda(Double valorVenda) {
+        this.valorVenda = valorVenda;
     }
 
     @Override
