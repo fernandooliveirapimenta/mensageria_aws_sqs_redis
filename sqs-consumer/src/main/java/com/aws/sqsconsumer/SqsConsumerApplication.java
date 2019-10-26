@@ -1,4 +1,4 @@
-package com.aws.springawsall;
+package com.aws.sqsconsumer;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 @SpringBootApplication
-public class SpringAwsAllApplication {
+public class SqsConsumerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringAwsAllApplication.class, args);
+        SpringApplication.run(SqsConsumerApplication.class, args);
     }
 
     @Bean(name = "OBJECT_MAPPER_BEAN")

@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.aws</groupId>
-    <artifactId>spring-aws-all</artifactId>
+    <artifactId>sqs-consumer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-aws-all</name>
+    <name>sqs-consumer</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
