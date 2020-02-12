@@ -1,6 +1,0 @@
-{
-	"user_id": {"S": "1234k4j4"},
-	"timestamp": {"N": "1525012928"},
-	"content": {"S": "Conteudo"},
-	"title": {"S": "my title"}
-}
